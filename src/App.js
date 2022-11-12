@@ -10,7 +10,7 @@ import Signup from "./Component/Signup";
 
 const App = () => {
   return (
-    <>
+
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -25,7 +25,10 @@ const App = () => {
 
 
 
-    </>
+
+
+
+
   )
 }
 
