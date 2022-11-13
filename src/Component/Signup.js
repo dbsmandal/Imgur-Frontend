@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from "axios";
 
 
 const Signup = () => {
@@ -12,43 +11,31 @@ const Signup = () => {
     cpassword:""
   })
 
-  // const handleSubmit=async(e)=>{
-  //   e.preventDefault();
-  //   await user
-  //   console.log("data", user)
-  // }
-  const handleChange = e =>{
+  
+  function handleChange (e){
+    const newUser = { ...user }
+        newUser[e.target.id] = e.target.value;
+        setUser(newUser);
+        console.log("onchange",newUser)
+    }
+  function handleRegister(e){
+    e.preventDefault();
+
+    console.log("handle register",user)
+
+  }
     
-    const {name,value} = e.target
-    setUser({
-    ...user,
-    [name]:value
-    })
-    }
-    const handleRegister = ()=>{
-      
-      const {firstName,lastName,userName,email,password,cpassword} = user
-      if (firstName && lastName && userName && email && password && cpassword){
-        
-       axios.post("http://localhost:6969/Register",user )
-       .then(res=>console.log(res))
-       console.log(user)
-      }
-      else{
-          alert("invalid input")
-      }
-    }
 
   return (
     <div>
-      <form onSubmit={(e)=>e.preventDefault()} className="flex flex-col">
+      <form onSubmit={(e)=>handleRegister(e)} className="flex flex-col">
         <h1>User Registartion</h1>
         <input
           type="text"
           id='firstName'
           name='firstName'
           value={user.firstName}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder='First Name'
           required   
           autoComplete='on'/>
@@ -57,7 +44,7 @@ const Signup = () => {
           id='lastName'
           name='lastName'
           value={user.lastName}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder='Last Name'
           required  autoComplete='on' />
         <input
@@ -65,7 +52,7 @@ const Signup = () => {
           id='userName'
           name='userName'
           value={user.userName}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder='User Name'
           required  autoComplete='on' />
         <input
@@ -73,7 +60,7 @@ const Signup = () => {
           id='email'
           name='email'
           value={user.email}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder='Enter Your Email '
           required  autoComplete='on' />
         <input
@@ -81,7 +68,7 @@ const Signup = () => {
           id='password'
           name='password'
           value={user.password}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder='Enter Your Password'
           required  autoComplete='on' />
         <input
@@ -89,12 +76,12 @@ const Signup = () => {
           id='cpassword'
           name='cpassword'
           value={user.cpassword}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder='Enter Your Confirm Password'
           required 
           autoComplete='on' />
 
-        <button onClick={handleRegister} type='submit'>Create Account</button>
+        <button  type='submit'>Create Account</button>
 
       </form>
     </div>

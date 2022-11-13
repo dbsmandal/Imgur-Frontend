@@ -5,7 +5,7 @@ import logo from "../Images/Imgur_logo.svg.png"
 const Navbar = () => {
   return (
     <div className='bg-green-300'>
-    <div className=' w-full mx-1 flex gap-4'>
+    <div className='  mx-2 flex gap-4'>
         <div className='w-2/12 grid place-items-center '>
             <Link to='/'>
             <img className='h-10 w-20' src={logo} alt="Imgur-FrontEnd" />

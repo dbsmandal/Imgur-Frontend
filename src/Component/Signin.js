@@ -1,52 +1,46 @@
 import React,{useState} from 'react'
-import axios from 'axios';
-import {useNavigate} from "react-router-dom"
 
-const Signin = ({setLoginUser}) => {
-  const Navigate = useNavigate()
+
+const Signin = () => {
 
   const [user,setUser] = useState({
     email:"",
     password: ""
 })
-const handleChange = e =>{
-  const {name,value} = e.target
-  setUser({
-  ...user,//spread operator 
-  [name]:value
-
-  })
-
+function handleChange (e){
+  const newUser = { ...user }
+      newUser[e.target.id] = e.target.value;
+      setUser(newUser);
+      console.log("onchange",newUser)
 
   }
-  const login =()=>{
-    axios.post("http://localhost:6969/Login",user)
-    .then(res=>{alert(res.data.message)
-    setLoginUser(res.data.user)
-    Navigate.push("/")
-    console.log(user,res)
-})
+  function handleLogin (e){
+    e.preventDefault();
+    console.log("handle login",user)
+   
 }
   return (
     <div>
-      <form onSubmit={(e)=>e.preventDefault()}>
+      <form onSubmit={(e)=>handleLogin(e)}>
         <input 
         type="email"
         name='email'
+        id='email'
         value={user.email}
-        onChange={handleChange}
+        onChange={(e)=>handleChange(e)}
         placeholder="Enter Your Email"
         required
         autoComplete='on' />
           <input 
         type="password"
         name='password'
+        id='password'
         value={user.password}
-        onChange={handleChange}
+        onChange={(e)=>handleChange(e)}
         placeholder="Enter Your Password"
         required
         autoComplete='on' />
-        <button type='submit' onClick={login}>Sign In</button>
+        <button type='submit' >Sign In</button>
 
       </form>
     </div>
