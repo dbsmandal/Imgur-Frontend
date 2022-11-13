@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 
 const Signup = () => {
+  const navigate = useNavigate()
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -20,6 +24,17 @@ const Signup = () => {
   }
   function handleRegister(e) {
     e.preventDefault();
+    const { firstName, lastName, userName, email , password ,cpassword } = user
+
+    if(firstName && lastName && userName && email && (password===cpassword)){
+      axios.post("https://fakestoreapi.com/auth/login",user)
+      .then(res=>{
+        alert(res.data.message)
+        navigate.push("/signin")
+      })
+    }else{
+      alert("Invalid input")
+    }
 
     console.log("handle register", user)
 
@@ -29,10 +44,10 @@ const Signup = () => {
   return (
     <div className='  flex  place-items-center flex-col  rounded bg-gray-100  mx-20 mt-14 '>
       <form onSubmit={(e) => handleRegister(e)} className="flex flex-col  ">
-        <div class="mt-6 mb-6" >
+        <div className="mt-6 mb-6" >
           <h1 className='flex place-content-center place-items-center text-xl font-bold'>User Registartion</h1>
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
           <input
             className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
             type="text"
@@ -45,7 +60,7 @@ const Signup = () => {
             autoComplete='on' />
 
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
 
           <input
             className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
@@ -57,7 +72,7 @@ const Signup = () => {
             placeholder='Last Name'
             required autoComplete='on' />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
 
           <input
             className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
@@ -69,7 +84,7 @@ const Signup = () => {
             placeholder='User Name'
             required autoComplete='on' />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
 
           <input
             className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
@@ -81,7 +96,7 @@ const Signup = () => {
             placeholder='Enter Your Email '
             required autoComplete='on' />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
 
           <input
             className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
@@ -93,7 +108,7 @@ const Signup = () => {
             placeholder='Enter Your Password'
             required autoComplete='on' />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
 
           <input
             className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
